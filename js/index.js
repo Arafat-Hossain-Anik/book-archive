@@ -36,6 +36,7 @@ const displayData = bookData => {
     const cardDiv = document.getElementById('card-container');
     // variable for only showing 20 data
     let counter = 0;
+    let showCounter = 0;
     // accessing every book information from books array
     booksArray.forEach(bookInfo => {
         const bookName = bookInfo.title;
@@ -49,7 +50,7 @@ const displayData = bookData => {
         }
         //if cover image is not availble
         else {
-            coverImageUrl = `image/cover-image-2.jpg`;
+            coverImageUrl = `image/cover-image.jpg`;
         }
         //many author name for one book
         const authorList = bookInfo.author_name;
@@ -86,8 +87,12 @@ const displayData = bookData => {
               <div class="card h-100">
                 <img src="${coverImageUrl}" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${bookName}</h5>
-                  <p class="card-text"><b>Author Name:</b> ${authorName}<br><b>Publisher Name:</b> ${publisherName}<br> <b>Publish Year:</b> ${publishYear}</p>
+                  <h4 class="card-title">${bookName}</h4>
+                  <p class="card-text">
+                  <h6><b>Author Name:</b> ${authorName}</h6>
+                  <h6><b>Publisher Name:</b> ${publisherName}</h6>
+                  <h6><b>Publish Year:</b> ${publishYear}</h6>
+                  </p>
                 </div>
               </div>
         `;
@@ -95,15 +100,18 @@ const displayData = bookData => {
         // showing only 20 result
         if (counter < 21) {
             cardDiv.appendChild(card);
+            showCounter++;
         }
     });
     spinnerVisibility('none');
     const totalBooksText = document.getElementById('search-result-counter')
+    const showingBooks = document.getElementById('showing-result-counter')
     if (totalBooks === 0) {
         totalBooksText.innerText = 'No Search Result Found.';
     }
     else {
         totalBooksText.innerText = totalBooks;
+        showingBooks.innerText = showCounter;
     }
     counterVisibility('block');
 }
