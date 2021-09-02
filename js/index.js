@@ -105,6 +105,7 @@ const displayData = bookData => {
     const showingBooks = document.getElementById('showing-result-counter');
     if (totalBooks === 0) {
         totalBooksText.innerText = 'No Search Result Found.';
+        showingBooks.innerText = showCounter;
     }
     else {
         totalBooksText.innerText = totalBooks;
