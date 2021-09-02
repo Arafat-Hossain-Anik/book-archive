@@ -1,26 +1,31 @@
+// Search Function 
 const searchByName = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     const url = `https://openlibrary.org/search.json?q=${searchText}`;
     fetchData(url);
     searchField.value = '';
-    const spinnerDiv = document.getElementById('spinner-div');
     document.getElementById('card-container').textContent = '';
-    spinnerDiv.style.display = 'block';
+    spinnerVisibility('block');
 }
+//spinner visibility function
+const spinnerVisibility = displayStyle => {
+    const spinnerDiv = document.getElementById('spinner-div');
+    spinnerDiv.style.display = displayStyle;
+}
+// fetch data  
 const fetchData = async url => {
     const res = await fetch(url);
     const data = await res.json();
     displayData(data);
 }
+//display data into window
 const displayData = bookData => {
     const booksArray = bookData.docs;
-    // console.log(authorName);
     console.log(bookData.docs);
     const cardDiv = document.getElementById('card-container');
     let counter = 0;
     booksArray.forEach(bookInfo => {
-        // console.log(bookInfo);
         const bookName = bookInfo.title;
         console.log(bookInfo.title);
         const coverI = bookInfo.cover_i;
@@ -29,19 +34,22 @@ const displayData = bookData => {
             coverImageUrl = `https://covers.openlibrary.org/b/id/${coverI}-M.jpg`;
         }
         else {
-            coverImageUrl = `image/cover-image.jpg`;
+            coverImageUrl = `image/cover-image-2.jpg`;
         }
-        // console.log(bookInfo.author_name);
         const authorList = bookInfo.author_name;
         let authorName = '';
+        //showing all author name
         if (authorList) {
             authorList.forEach(author => {
-                authorName = authorName + author + ' ';
+                authorName = authorName + author + ', ';
             });
+            //removing last comma and space
+            authorName = authorName.substring(0, authorName.length - 2);
         }
         else {
             authorName = 'Unknown';
         }
+        //checking publisher name is available or not
         let publisherName;
         if ('publisher' in bookInfo) {
             publisherName = bookInfo.publisher[0];
@@ -49,12 +57,12 @@ const displayData = bookData => {
         else {
             publisherName = 'Unknown';
         }
-        // console.log("publisher name: ", bookInfo.publisher[0]);
+        //checking publishing year is available or not
         let publishYear = bookInfo?.first_publish_year;
         if (!publishYear) {
             publishYear = 'Unknown';
         }
-        console.log("publish date", bookInfo.first_publish_year);
+        // data showing in the window
         const card = document.createElement('div');
         card.classList.add('col');
         card.innerHTML = `
@@ -62,14 +70,13 @@ const displayData = bookData => {
                 <img src="${coverImageUrl}" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${bookName}</h5>
-                  <p class="card-text">Author Name: ${authorName}<br>Publisher Name: ${publisherName}<br> Publish Year: ${publishYear}</p>
+                  <p class="card-text"><b>Author Name:</b> ${authorName}<br><b>Publisher Name:</b> ${publisherName}<br> <b>Publish Year:</b> ${publishYear}</p>
                 </div>
               </div>
         `;
         cardDiv.appendChild(card);
         counter++;
     });
-    const spinnerDiv = document.getElementById('spinner-div');
-    spinnerDiv.style.display = 'none';
+    spinnerVisibility('none');
     console.log(counter);
 }
