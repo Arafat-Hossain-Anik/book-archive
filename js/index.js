@@ -8,7 +8,6 @@ const searchByName = () => {
     document.getElementById('card-container').textContent = '';
     spinnerVisibility('block');
     counterVisibility('none');
-
 }
 // spinner visibility function
 const spinnerVisibility = displayStyle => {
@@ -30,7 +29,6 @@ const fetchData = async url => {
 const displayData = bookData => {
     // definning data array
     const booksArray = bookData.docs;
-    console.log(bookData.docs);
     const totalBooks = booksArray.length;
     // card container for showing data
     const cardDiv = document.getElementById('card-container');
@@ -40,7 +38,6 @@ const displayData = bookData => {
     // accessing every book information from books array
     booksArray.forEach(bookInfo => {
         const bookName = bookInfo.title;
-        console.log(bookInfo.title);
         // definning coveri for cover image
         const coverI = bookInfo.cover_i;
         let coverImageUrl;
@@ -104,8 +101,8 @@ const displayData = bookData => {
         }
     });
     spinnerVisibility('none');
-    const totalBooksText = document.getElementById('search-result-counter')
-    const showingBooks = document.getElementById('showing-result-counter')
+    const totalBooksText = document.getElementById('search-result-counter');
+    const showingBooks = document.getElementById('showing-result-counter');
     if (totalBooks === 0) {
         totalBooksText.innerText = 'No Search Result Found.';
     }
