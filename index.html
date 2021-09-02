@@ -14,7 +14,7 @@
 
 <body>
     <main class="container">
-        <section class="container mt-3">
+        <section class="container mt-3 h-100">
             <div class="text-center">
                 <h2>Welcome to Book's Archive</h2>
                 <div class="input-group mt-3 mb-3 w-50 mx-auto">
@@ -29,7 +29,12 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section class="mt-5">
+            <div id="counter-container" class="mb-5 border rounded p-2">
+                <h4 class="text-center m-0">Total Search Result:
+                    <span id="search-result-counter"></span>
+                </h4>
+            </div>
             <div id="card-container" class="row row-cols-1 row-cols-md-4 g-4">
             </div>
         </section>

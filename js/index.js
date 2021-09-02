@@ -7,11 +7,17 @@ const searchByName = () => {
     searchField.value = '';
     document.getElementById('card-container').textContent = '';
     spinnerVisibility('block');
+    // counterVisibility('none');
 }
-//spinner visibility function
+// spinner visibility function
 const spinnerVisibility = displayStyle => {
     const spinnerDiv = document.getElementById('spinner-div');
     spinnerDiv.style.display = displayStyle;
+}
+//total search result counter visibility
+const counterVisibility = displayStyle => {
+    const counterDiv = document.getElementById('counter-container')
+    counterDiv.style.display = displayStyle;
 }
 // fetch data  
 const fetchData = async url => {
@@ -78,5 +84,8 @@ const displayData = bookData => {
         counter++;
     });
     spinnerVisibility('none');
+    const counterText = document.getElementById('search-result-counter')
+    counterText.innerText = counter;
+    counterVisibility('block');
     console.log(counter);
 }
