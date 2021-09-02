@@ -1,7 +1,7 @@
 const searchByName = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    const url = `http://openlibrary.org/search.json?q=${searchText}`;
+    const url = `https://openlibrary.org/search.json?q=${searchText}`;
     fetchData(url);
     searchField.value = '';
     const spinnerDiv = document.getElementById('spinner-div');
@@ -23,6 +23,14 @@ const displayData = bookData => {
         // console.log(bookInfo);
         const bookName = bookInfo.title;
         console.log(bookInfo.title);
+        const coverI = bookInfo.cover_i;
+        let coverImageUrl;
+        if (coverI) {
+            coverImageUrl = `https://covers.openlibrary.org/b/id/${coverI}-M.jpg`;
+        }
+        else {
+            coverImageUrl = `image/cover-image.jpg`;
+        }
         // console.log(bookInfo.author_name);
         const authorList = bookInfo.author_name;
         let authorName = '';
@@ -51,7 +59,7 @@ const displayData = bookData => {
         card.classList.add('col');
         card.innerHTML = `
               <div class="card h-100">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="${coverImageUrl}" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${bookName}</h5>
                   <p class="card-text">Author Name: ${authorName}<br>Publisher Name: ${publisherName}<br> Publish Year: ${publishYear}</p>
