@@ -7,7 +7,8 @@ const searchByName = () => {
     searchField.value = '';
     document.getElementById('card-container').textContent = '';
     spinnerVisibility('block');
-    // counterVisibility('none');
+    counterVisibility('none');
+
 }
 // spinner visibility function
 const spinnerVisibility = displayStyle => {
@@ -27,25 +28,35 @@ const fetchData = async url => {
 }
 //display data into window
 const displayData = bookData => {
+    // definning data array
     const booksArray = bookData.docs;
     console.log(bookData.docs);
+    const totalBooks = booksArray.length;
+    // card container for showing data
     const cardDiv = document.getElementById('card-container');
+    // variable for only showing 20 data
     let counter = 0;
+    // accessing every book information from books array
     booksArray.forEach(bookInfo => {
         const bookName = bookInfo.title;
         console.log(bookInfo.title);
+        // definning coveri for cover image
         const coverI = bookInfo.cover_i;
         let coverImageUrl;
+        // setting cover image
         if (coverI) {
             coverImageUrl = `https://covers.openlibrary.org/b/id/${coverI}-M.jpg`;
         }
+        //if cover image is not availble
         else {
             coverImageUrl = `image/cover-image-2.jpg`;
         }
+        //many author name for one book
         const authorList = bookInfo.author_name;
         let authorName = '';
         //showing all author name
         if (authorList) {
+            //comabining many author name into one varible
             authorList.forEach(author => {
                 authorName = authorName + author + ', ';
             });
@@ -64,7 +75,7 @@ const displayData = bookData => {
             publisherName = 'Unknown';
         }
         //checking publishing year is available or not
-        let publishYear = bookInfo?.first_publish_year;
+        let publishYear = bookInfo.first_publish_year;
         if (!publishYear) {
             publishYear = 'Unknown';
         }
@@ -80,12 +91,19 @@ const displayData = bookData => {
                 </div>
               </div>
         `;
-        cardDiv.appendChild(card);
         counter++;
+        // showing only 20 result
+        if (counter < 21) {
+            cardDiv.appendChild(card);
+        }
     });
     spinnerVisibility('none');
-    const counterText = document.getElementById('search-result-counter')
-    counterText.innerText = counter;
+    const totalBooksText = document.getElementById('search-result-counter')
+    if (totalBooks === 0) {
+        totalBooksText.innerText = 'No Search Result Found.';
+    }
+    else {
+        totalBooksText.innerText = totalBooks;
+    }
     counterVisibility('block');
-    console.log(counter);
 }

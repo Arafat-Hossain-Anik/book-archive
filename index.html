@@ -14,7 +14,9 @@
 
 <body>
     <main class="container">
+        <!-- search box and spinner section -->
         <section class="container mt-3 h-100">
+            <!-- search box container -->
             <div class="text-center">
                 <h2>Welcome to Book's Archive</h2>
                 <div class="input-group mt-3 mb-3 w-50 mx-auto">
@@ -24,22 +26,28 @@
                         id="search-btn">Search</button>
                 </div>
             </div>
+            <!-- spinner contaner -->
             <div id="spinner-div" class="text-center">
                 <div class="spinner-border" role="status">
                 </div>
             </div>
         </section>
+        <!-- search result section -->
         <section class="mt-5">
-            <div id="counter-container" class="mb-5 border rounded p-2">
+            <!-- search result counter -->
+            <div id="counter-container" class="mb-5">
                 <h4 class="text-center m-0">Total Search Result:
                     <span id="search-result-counter"></span>
                 </h4>
             </div>
-            <div id="card-container" class="row row-cols-1 row-cols-md-4 g-4">
+            <!-- search result card container -->
+            <div id="card-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
             </div>
         </section>
     </main>
+    <!-- bootstrap js -->
     <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- custom js  -->
     <script src="js/index.js"></script>
 </body>
 
